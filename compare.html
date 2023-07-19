@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <!-- Read ME!!
+File/code is provided "as is" without warranty of any kind, either express or implied. Use at your own risk!
+
+Page compares 2 strings/addresses
+This can come in handy when you want to compare BTC or other token addresses
+
+It is a single file and uses no internet connection or libraries 
+The javascript and css in inside this single file
+
+Usage: 
+
+Open file in a private tab from your browser.
+Preferably in a different browser then you are using for all other stuff.
+Optimal is when you remove all extensions from the browser and start in private mode.
+
+Paste or type first address in box1 then the other address in box2, when addresses are the same the box turns green.
+Known limitations : 128 characters in a box
+
+v1.0 270122: intial release
+v1.1 280822: case insensitive option
+
+Donation?
+LTC: 
+
+LPYyJk8otqF7CSwiLjL96Fhsa1aubmh1Tq
+
+@maupolom
+-->
+
+  <head>
+    <title>Compare 2 addresses, offline</title>
+    <style>
+      body {
+        background: black;
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 5%;
+        color: white;
+      }
+
+      h1 {
+        color: white;
+      }
+
+      .box {
+        width: 200px;
+        height: 100px;
+        border: 1px solid black;
+        background: blue;
+        padding: 5%;
+        text-align: center;
+      }
+
+      input {
+        font-size: 18px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Compare 2 addresses, offline</h1>
+    <input type="checkbox" id="case" name="case" value="yes">
+    <label for="case">Case insensitive</label><br>
+    <h2>
+      Address 1:<br>
+      <input type="text" id="from" size="128"><br><br>
+      Address 2:<br>
+      <input type="text" id="to" size="128">
+    </h2>
+    <br><br>
+    <br><br>
+    <div class="box" id="box"></div>
+  </body>
+  <script>
+    document.getElementById("from").addEventListener("keyup", compareaddress);
+    document.getElementById("from").addEventListener("keydown", compareaddress);
+    document.getElementById("to").addEventListener("keyup", compareaddress);
+    document.getElementById("to").addEventListener("keydown", compareaddress);
+    document.getElementById("case").addEventListener("click", compareaddress);
+
+    function compareaddress() {
+      if (document.getElementById('case').checked) {
+        //case insensitive loop, all converted to lowercase
+        var from = document.getElementById("from");
+        var to = document.getElementById("to");
+        if (from.value.toLowerCase() == to.value.toLowerCase()) {
+          to.style.borderColor = "#2EFE2E";
+          box.style.background = "#2EFE2E";
+          document.getElementById("box").innerHTML = "SAME";
+        } else {
+          to.style.borderColor = "red";
+          box.style.background = "red";
+          document.getElementById("box").innerHTML = "DIFFERENT!!";
+        };
+      } else {
+        var from = document.getElementById("from");
+        var to = document.getElementById("to");
+        if (from.value == to.value) {
+          to.style.borderColor = "#2EFE2E";
+          box.style.background = "#2EFE2E";
+          document.getElementById("box").innerHTML = "SAME";
+        } else {
+          to.style.borderColor = "red";
+          box.style.background = "red";
+          document.getElementById("box").innerHTML = "DIFFERENT!!";
+        }
+      }
+    }
+  </script>
